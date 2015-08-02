@@ -30,7 +30,7 @@ $(document).ready(function() {
 
   function init() {
     var person = "Squall";
-    var text = "Taken...angel's...singing voices...zeno...gias";
+    var text = '\n"Taken...angels...singing voices...zeno...gias"\n';
     drawBubble(80, 100);
     writeText(person, text);
   }
