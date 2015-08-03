@@ -70,6 +70,26 @@ $(document).ready(function() {
     currentOffset = 0;
     timer = setInterval(onTick, 100);
     dialogHeader(person)
+    $('.content').on('click', function() {
+      clearInterval(timer);
+      drawBubble(80, 100);
+      dialogHeader(person);
+      var x = 100;
+      var y = 210;
+      var pad = 15;
+      console.log(wordSet)
+      for (var i = 0; wordSet.length > i; i++) {
+        if (x  > 600) {
+          y += 25;
+          x = 100;
+        }
+        console.log("alert");
+        ctx.font = "15px Arial";
+        ctx.fillStyle = 'white';
+        ctx.fillText(wordSet[i], x, y);
+        x += pad;
+      }
+    })
   }
 
   function onTick() {
@@ -111,6 +131,12 @@ $(document).ready(function() {
     ctx.fillStyle = 'white';
     ctx.fillText(name, 180, 175);
     ctx.drawImage(cloud,110,120, 60, 60);
+  }
+
+  function fastForward(text) {
+    $('.content').on('click', function() {
+
+    })
   }
 
 })//init
