@@ -29,15 +29,36 @@ $(document).ready(function() {
   }
 
   function init() {
-    var person = "Squall";
-    var text = ' \n"Taken...angels...singing voices...zeno...gias"\n';
-    drawBubble(80, 100);
-    writeText(person, text);
+    var person = "Cloud";
+    var dialog = "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
+    dialog = dialog.split('');
+    console.log(dialog.length)
+    // var textCalc = text.split('');
+    if (dialog.length > 100) {
+      var dialog = textCal(dialog)
+      drawBubble(80, 100);
+    }
+    else {
+      drawBubble(80, 100);
+      writeText(person, text);
+    }
   }
 
+
+  function textCal(dialog) {
+    var someArray = dialog;
+    var groupSize = 50;
+    var cycle = _.map(someArray, function(item, index){
+    return index % groupSize === 0 ? someArray.slice(index, index + groupSize) : null;
+    });
+    var groups = cycle.filter(function(item){ return item;});
+    console.log(groups);
+    return groups
+}
+
   function writeText(person, text) {
-    fullText = text;
-    wordSet = text.split('');
+    fullText = text.join('');
+    console.log(text.length);
     currentOffset = 0;
     timer = setInterval(onTick, 100);
     dialogHeader(person)
@@ -45,7 +66,7 @@ $(document).ready(function() {
 
   function onTick() {
     currentOffset++;
-    if (currentOffset == wordSet.length) {
+    if (currentOffset == text.length) {
       ctx.closePath();
       clearInterval(timer);
       return;
@@ -59,7 +80,7 @@ $(document).ready(function() {
         y += 25;
         x = 100;
       }
-      text += wordSet[i] + "";
+      text += text[i] + "";
       ctx.font = "15px Arial";
       ctx.fillStyle = 'white';
       ctx.fillText(wordSet[i], x, y);
@@ -69,7 +90,7 @@ $(document).ready(function() {
   }
 
   function dialogHeader(name) {
-    ctx.font = "25px Arial"
+    ctx.font = "25px Arial";
     ctx.fillStyle = 'white';
     ctx.fillText(name, 180, 175);
     ctx.drawImage(cloud,110,120, 60, 60);
