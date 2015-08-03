@@ -37,7 +37,13 @@ $(document).ready(function() {
     if (dialog.length > 100) {
       var dialog = textCal(dialog)
       drawBubble(80, 100);
-      writeText(person, dialog)
+      writeText(person, dialog, function() {
+        for (var i = 0; dialog.length < i; i++) {
+          setTimeout(function() {
+            writeText(person, dialog[i])
+          }, 2000);
+        }
+      })
     }
     else {
       drawBubble(80, 100);
@@ -57,7 +63,8 @@ $(document).ready(function() {
     return collection
   }
 
-  function writeText(person, text) {
+  function writeText(person, text, callback) {
+    onComplete = callback
     console.log(text.length);
     if (chatCount === undefined) {
       chatCount = 0;
@@ -138,5 +145,12 @@ $(document).ready(function() {
 
     })
   }
+
+  function complete() {
+    clearInterval(timer);
+    timer = null;
+    $("#message").html(fullText);
+    if (onComplete) onComplete();
+}
 
 })//init
