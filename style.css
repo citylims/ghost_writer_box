@@ -25,3 +25,7 @@ canvas {
   left: 250px;
   top: 50px;
 }
+
+#cloudImg {
+  display:none;
+}

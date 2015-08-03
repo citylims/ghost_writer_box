@@ -4,6 +4,7 @@ $(document).ready(function() {
   var ctx = canvas.getContext("2d");
   var ctx2 = foreground.getContext("2d");
   var timer, fullText, currentOffset, onComplete, wordSet;
+  var cloud = document.getElementById("cloudImg");
   var green = "#548779";
   var black = "#1D1F21";
   ctx.translate(0.5, 0.5);
@@ -13,7 +14,6 @@ $(document).ready(function() {
   canvas.style.height = canvas.height;
 
   init();
-
 
   function drawBubble(x,y) {
     ctx.beginPath();
@@ -30,7 +30,7 @@ $(document).ready(function() {
 
   function init() {
     var person = "Squall";
-    var text = '\n"Taken...angels...singing voices...zeno...gias"\n';
+    var text = ' \n"Taken...angels...singing voices...zeno...gias"\n';
     drawBubble(80, 100);
     writeText(person, text);
   }
@@ -52,7 +52,7 @@ $(document).ready(function() {
     }
     var text = "";
     var x = 100;
-    var y = 200;
+    var y = 210;
     var pad = 15;
     for (var i = 0; i < currentOffset; i++){
       if (x  > 600) {
@@ -71,7 +71,8 @@ $(document).ready(function() {
   function dialogHeader(name) {
     ctx.font = "25px Arial"
     ctx.fillStyle = 'white';
-    ctx.fillText(name, 100, 150);
+    ctx.fillText(name, 180, 175);
+    ctx.drawImage(cloud,110,120, 60, 60);
   }
 
 })//init
