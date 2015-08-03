@@ -4,9 +4,7 @@ $(document).ready(function() {
   var ctx = canvas.getContext("2d");
   var ctx2 = foreground.getContext("2d");
   var timer, fullText, currentOffset, onComplete, wordSet, chatCount, multiLength;
-  var body = document.getElementById('body')
-  var green = "#548779";
-  var black = "#1D1F21";
+  var body = document.getElementById('body');
   var limit = 150;
   ctx.translate(0.5, 0.5);
   canvas.width = 1000;
@@ -22,7 +20,6 @@ $(document).ready(function() {
   var dia = "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
 
   init(persona, dia);
-  // appendInfo(persona);
 
   function init(persona, input) {
     appendInfo(persona);
@@ -46,7 +43,6 @@ $(document).ready(function() {
       writeText(persona, dialog);
     }
   }
-
 
   function textCal(dialog) {
     var cycle = _.map(dialog, function(item, index){
@@ -120,7 +116,7 @@ $(document).ready(function() {
       clearInterval(timer);
       if (multiLength !== chatCount) {
         console.log("next array")
-        drawBubble(80, 100);
+        // drawBubble(80, 100);
       }
       return;
     }
@@ -161,17 +157,11 @@ $(document).ready(function() {
     ctx.drawImage(image ,110,120, 60, 60);
   }
 
-  // function fastForward(text) {
-  //   $('.content').on('click', function() {
-  //
-  //   })
-  // }
-
   function complete() {
     clearInterval(timer);
     timer = null;
     $("#message").html(fullText);
     if (onComplete) onComplete();
-}
+  }
 
-})//init
+});//init
