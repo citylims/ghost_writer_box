@@ -7,6 +7,7 @@ $(document).ready(function() {
   var cloud = document.getElementById("cloudImg");
   var green = "#548779";
   var black = "#1D1F21";
+  var limit = 150;
   ctx.translate(0.5, 0.5);
   canvas.width = 1000;
   canvas.height = 500;
@@ -20,7 +21,7 @@ $(document).ready(function() {
     var gradient = ctx.createLinearGradient(0,0,0,170);
     gradient.addColorStop(0, 'aqua');
     gradient.addColorStop(1, 'blue');
-    ctx.rect(x, y, 600, 300)
+    ctx.rect(x, y, 600, 270)
     ctx.fillStyle = gradient;
     ctx.fill();
     ctx.lineWidth = 5;
@@ -46,11 +47,12 @@ $(document).ready(function() {
 
 
   function textCal(dialog) {
-    var limit = 50;
     var cycle = _.map(dialog, function(item, index){
-    return index % limit === 0 ? dialog.slice(index, index + limit) : null;
+      return index % limit === 0 ? dialog.slice(index, index + limit) : null;
     });
-    var collection = cycle.filter(function(item){ return item;});
+    var collection = cycle.filter(function(item){
+      return item;
+    });
     console.log(collection);
     return collection
   }
