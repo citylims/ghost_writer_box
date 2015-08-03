@@ -4,7 +4,7 @@ $(document).ready(function() {
   var ctx = canvas.getContext("2d");
   var ctx2 = foreground.getContext("2d");
   var timer, fullText, currentOffset, onComplete, wordSet, chatCount, multiLength;
-  var cloud = document.getElementById("cloudImg");
+  var body = document.getElementById('body')
   var green = "#548779";
   var black = "#1D1F21";
   var limit = 150;
@@ -14,40 +14,36 @@ $(document).ready(function() {
   canvas.style.width = canvas.width;
   canvas.style.height = canvas.height;
 
-  init();
-
-  function drawBubble(x,y) {
-    ctx.beginPath();
-    var gradient = ctx.createLinearGradient(0,0,0,170);
-    gradient.addColorStop(0, 'aqua');
-    gradient.addColorStop(1, 'blue');
-    ctx.rect(x, y, 600, 270)
-    ctx.fillStyle = gradient;
-    ctx.fill();
-    ctx.lineWidth = 5;
-    ctx.strokeStyle = "#c0c0c0";
-    ctx.stroke();
+  var persona = {
+    name: 'Cloud',
+    url: 'http://i.imgur.com/N12jb6B.png'
   }
 
-  function init() {
-    var person = "Cloud";
-    var text = "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
+  var dia = "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
+
+  init(persona, dia);
+  // appendInfo(persona);
+
+  function init(persona, input) {
+    appendInfo(persona);
+    var text = input
+    console.log(text);
     dialog = text.split('');
     console.log(dialog.length);
     if (dialog.length > 100) {
       var dialog = textCal(dialog)
       drawBubble(80, 100);
-      writeText(person, dialog, function() {
+      writeText(persona, dialog, function() {
         for (var i = 0; dialog.length < i; i++) {
           setTimeout(function() {
-            writeText(person, dialog[i])
+            writeText(persona, dialog[i])
           }, 2000);
         }
       })
     }
     else {
       drawBubble(80, 100);
-      writeText(person, dialog);
+      writeText(persona, dialog);
     }
   }
 
@@ -63,7 +59,20 @@ $(document).ready(function() {
     return collection
   }
 
-  function writeText(person, text, callback) {
+  function drawBubble(x,y) {
+    ctx.beginPath();
+    var gradient = ctx.createLinearGradient(0,0,0,170);
+    gradient.addColorStop(0, 'aqua');
+    gradient.addColorStop(1, 'blue');
+    ctx.rect(x, y, 600, 270)
+    ctx.fillStyle = gradient;
+    ctx.fill();
+    ctx.lineWidth = 5;
+    ctx.strokeStyle = "#c0c0c0";
+    ctx.stroke();
+  }
+
+  function writeText(persona, text, callback) {
     onComplete = callback
     console.log(text.length);
     if (chatCount === undefined) {
@@ -76,11 +85,11 @@ $(document).ready(function() {
     fullText = text.join('');
     currentOffset = 0;
     timer = setInterval(onTick, 100);
-    dialogHeader(person)
+    dialogHeader(persona)
     $('.content').on('click', function() {
       clearInterval(timer);
       drawBubble(80, 100);
-      dialogHeader(person);
+      dialogHeader(persona);
       var x = 100;
       var y = 210;
       var pad = 15;
@@ -133,18 +142,30 @@ $(document).ready(function() {
     text.trim();
   }
 
-  function dialogHeader(name) {
+
+  function appendInfo(persona) {
+    var imgEl = document.createElement('img');
+    $(imgEl).attr({
+      src: persona.url,
+      id: "avatar"
+    }).css("display", "none");
+    $(body).append(imgEl);
+    setTimeout(function(){dialogHeader(persona)}, 100);
+  }
+
+  function dialogHeader(persona) {
+    var image = document.getElementById('avatar');
     ctx.font = "25px Arial";
     ctx.fillStyle = 'white';
-    ctx.fillText(name, 180, 175);
-    ctx.drawImage(cloud,110,120, 60, 60);
+    ctx.fillText(persona.name, 180, 175);
+    ctx.drawImage(image ,110,120, 60, 60);
   }
 
-  function fastForward(text) {
-    $('.content').on('click', function() {
-
-    })
-  }
+  // function fastForward(text) {
+  //   $('.content').on('click', function() {
+  //
+  //   })
+  // }
 
   function complete() {
     clearInterval(timer);
