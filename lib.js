@@ -80,7 +80,7 @@ $(document).ready(function() {
     }
     fullText = text.join('');
     currentOffset = 0;
-    timer = setInterval(onTick, 100);
+    timer = setInterval(onTick, 50);
     dialogHeader(persona)
     $('.content').on('click', function() {
       clearInterval(timer);
@@ -106,12 +106,7 @@ $(document).ready(function() {
 
   function onTick() {
     currentOffset++;
-    if (multiLength === chatCount) {
-      ctx.closePath();
-      clearInterval(timer);
-      return
-    }
-    if (currentOffset == wordSet.length) {
+    if (currentOffset == wordSet.length || multiLength === chatCount) {
       ctx.closePath();
       clearInterval(timer);
       if (multiLength !== chatCount) {
